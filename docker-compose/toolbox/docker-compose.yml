@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  toolbox:
+    image: registry.cn-hangzhou.aliyuncs.com/devzyh/toolbox:latest
+    container_name: toolbox
+    hostname: toolbox
+    restart: always
+    ports:
+      - 8000:8000
+    volumes:
+      - /etc/timezone:/etc/timezone
+      - ./data:/h2db

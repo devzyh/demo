@@ -1,0 +1,8 @@
+server:
+  port: 8080
+
+# 系统权限认证
+auth:
+  enabled: ${SENTINEL_AUTH_ENABLED:false}
+  username: ${SENTINEL_AUTH_USERNAME}
+  password: ${SENTINEL_AUTH_PASSWORD}

@@ -1,0 +1,12 @@
+# /etc/systemd/system/frpc.service
+[Unit]
+Description = frp clinet
+After = network.target syslog.target
+Wants = network.target
+
+[Service]
+Type = simple
+ExecStart = /opt/frpc/frpc -c /opt/frpc/frpc.ini
+
+[Install]
+WantedBy = multi-user.target

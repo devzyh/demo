@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  rabbit:
+    image: rabbitmq:3.12.4-management
+    container_name: rabbit
+    hostname: rabbit
+    restart: always
+    environment:
+      RABBITMQ_DEFAULT_USER: rabbit
+      RABBITMQ_DEFAULT_PASS: rabbit
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - /etc/timezone:/etc/timezone
+      - ./data:/var/lib/rabbitmq

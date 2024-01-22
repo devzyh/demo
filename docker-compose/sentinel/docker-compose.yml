@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  sentinel-dashboard:
+    build:
+      context: .
+    image: sentinel-dashboard
+    container_name: sentinel-dashboard
+    hostname: sentinel-dashboard
+    restart: always
+    environment:
+      SENTINEL_AUTH_ENABLED: 'true'
+      SENTINEL_AUTH_USERNAME: oms
+      SENTINEL_AUTH_PASSWORD: oms
+    ports:
+      - 8080:8080
