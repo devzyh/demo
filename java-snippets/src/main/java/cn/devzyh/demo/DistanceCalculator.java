@@ -15,13 +15,12 @@ public class DistanceCalculator {
         double radLon2 = Math.toRadians(lon2);
 
         // 应用Haversine公式计算两个经纬度之间的距离
-        double dlon = radLon2 - radLon1;
-        double dlat = radLat2 - radLat1;
-        double a = Math.pow(Math.sin(dlat / 2), 2) + Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(dlon / 2), 2);
+        double dLon = radLon2 - radLon1;
+        double dLat = radLat2 - radLat1;
+        double a = Math.pow(Math.sin(dLat / 2), 2) + Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(dLon / 2), 2);
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        double distance = EARTH_RADIUS * c;
 
-        return distance;
+        return EARTH_RADIUS * c;
     }
 
     public static void main(String[] args) {
