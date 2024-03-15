@@ -1,4 +1,4 @@
-package cn.devzyh.minispring.test.bean;
+package cn.devzyh.minispring.bean;
 
 /**
  * 用户服务

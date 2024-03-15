@@ -1,8 +1,6 @@
-package cn.devzyh.minispring.test.bean;
+package cn.devzyh.minispring.bean;
 
 
-import cn.devzyh.minispring.bean.BeanDefinition;
-import cn.devzyh.minispring.bean.BeanFactory;
 import org.junit.jupiter.api.Test;
 
 
