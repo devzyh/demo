@@ -16,4 +16,13 @@ public interface BeanFactory {
      */
     Object getBean(String beanName) throws BeanException;
 
+    /**
+     * 获取Bean对象
+     *
+     * @param beanName
+     * @param args
+     * @return
+     */
+    Object getBean(String beanName, Object... args) throws BeanException;
+
 }

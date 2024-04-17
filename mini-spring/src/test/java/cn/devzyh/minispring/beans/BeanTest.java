@@ -23,4 +23,21 @@ public class BeanTest {
         UserService service2 = (UserService) factory.getBean(beanName);
         service2.hello();
     }
+
+    /**
+     * 带有构造参数的Bean对象实例化
+     *
+     * @throws BeanException
+     */
+    @Test
+    public void testBeanWithArgs() throws BeanException {
+        DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
+        BeanDefinition definition = new BeanDefinition(UserService.class);
+        String beanName = "userService";
+        factory.registerBeanDefinition(beanName, definition);
+
+        UserService service = (UserService) factory.getBean(beanName, "zhangsan");
+        service.say();
+    }
+
 }
