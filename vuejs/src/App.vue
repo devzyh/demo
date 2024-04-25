@@ -108,11 +108,73 @@
   <div>
     <input placeholder="默认选中输入框" id="test" ref="refInput"></input>
   </div>
+
+  <hr/>
+
+  <h1><a href="#component">组件演示</a></h1>
+  <div>
+    <h3>基础使用</h3>
+    <hello-component/>
+
+    <h3>父传子</h3>
+    <hello-component :num="10"/>
+
+    <h3>子通知父</h3>
+    <hello-component :num="15" @plus="plus"/>
+
+    <h3>父传孙（发送接收模式）</h3>
+    <hello-component/>
+
+  </div>
+
+  <h1>组件插槽</h1>
+
+  <h3>默认插槽</h3>
+  <div>
+    <slot-demo></slot-demo>
+    <slot-demo>我是新的身体</slot-demo>
+  </div>
+
+  <h3>具名插槽</h3>
+  <div>
+    <slot-demo>
+      <!--完全语法-->
+      <template v-slot:header>
+        我是新的头部
+      </template>
+
+      覆盖默认身体
+
+      <!--缩写语法-->
+      <template #footer>
+        我是新的尾部
+      </template>
+    </slot-demo>
+
+    <h3>作用域插槽</h3>
+    <div>
+      <slot-demo>
+        <!--完全语法-->
+        <template v-slot:header="msg">
+          我是新的头部 {{ msg }}
+        </template>
+
+        <template v-slot="msg">
+          覆盖默认身体 {{ msg }}
+        </template>
+
+        <!--缩写语法-->
+        <template #footer="{level,age}">
+          我是新的尾部 {{level}} {{ age}}
+        </template>
+      </slot-demo>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
 // 导入依赖
-import {computed, onBeforeMount, onMounted, reactive, ref, watch} from "vue";
+import {computed, onBeforeMount, onMounted, provide, reactive, ref, watch} from "vue";
 
 // 响应式
 const msg = ref("测试内容")
@@ -235,6 +297,13 @@ function focusInput() {
   // 方法2
   refInput.value.focus()
 }
+
+// 组件使用
+function plus(num: number, msg: string) {
+  window.alert(num + ":" + msg)
+}
+
+provide("msg", "发往组件的信息")
 </script>
 
 <style scoped>
