@@ -34,6 +34,4 @@ public class SaOAuth2TemplateImpl extends SaOAuth2Template {
         return "gr_SwoIN0MC1ewxHX_vfCW3BothWDZMMtx__";
     }
 
-
-
 }
