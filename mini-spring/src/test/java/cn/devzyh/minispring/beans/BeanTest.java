@@ -1,7 +1,9 @@
 package cn.devzyh.minispring.beans;
 
 import cn.devzyh.minispring.beans.factory.config.BeanDefinition;
+import cn.devzyh.minispring.beans.factory.config.BeanReference;
 import cn.devzyh.minispring.beans.factory.support.DefaultListableBeanFactory;
+import cn.devzyh.minispring.beans.service.UserDao;
 import cn.devzyh.minispring.beans.service.UserService;
 import org.junit.jupiter.api.Test;
 
@@ -38,6 +40,29 @@ public class BeanTest {
 
         UserService service = (UserService) factory.getBean(beanName, "zhangsan");
         service.say();
+    }
+
+    /**
+     * Bean对象属性依赖
+     *
+     * @throws BeanException
+     */
+    @Test
+    public void testBeanApplyPropertyValues() throws BeanException {
+        DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
+
+        BeanDefinition definition = new BeanDefinition(UserDao.class);
+        String daoName = "userDao";
+        factory.registerBeanDefinition(daoName, definition);
+
+        definition = new BeanDefinition(UserService.class);
+        definition.addPropertyValue(new PropertyValue("userDao", new BeanReference(daoName)));
+        definition.addPropertyValue(new PropertyValue("name", "张三"));
+        String svcName = "userService";
+        factory.registerBeanDefinition(svcName, definition);
+
+        UserService service = (UserService) factory.getBean(svcName);
+        service.printAddress();
     }
 
 }

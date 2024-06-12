@@ -1,9 +1,12 @@
 package cn.devzyh.minispring.beans.service;
 
 /**
- * 用户服务
+ * 用户服务层
  */
 public class UserService {
+
+    // 依赖Bean对象
+    private UserDao userDao;
 
     // 属性：姓名
     private String name;
@@ -24,4 +27,7 @@ public class UserService {
         System.out.println("我的名字叫：" + this.name);
     }
 
+    public void printAddress() {
+        System.out.printf("%s的住址是：%s\n", this.name, this.userDao.getAddressByName(this.name));
+    }
 }
