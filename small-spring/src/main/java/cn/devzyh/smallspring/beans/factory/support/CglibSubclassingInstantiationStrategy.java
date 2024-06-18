@@ -1,6 +1,6 @@
 package cn.devzyh.smallspring.beans.factory.support;
 
-import cn.devzyh.smallspring.beans.BeanException;
+import cn.devzyh.smallspring.beans.BeansException;
 import cn.devzyh.smallspring.beans.factory.config.BeanDefinition;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.NoOp;
@@ -13,7 +13,7 @@ import java.lang.reflect.Constructor;
 public class CglibSubclassingInstantiationStrategy implements InstantiationStrategy {
 
     @Override
-    public Object instantiate(BeanDefinition beanDefinition, Constructor<?> constructor, Object[] args) throws BeanException {
+    public Object instantiate(BeanDefinition beanDefinition, Constructor<?> constructor, Object[] args) throws BeansException {
         Enhancer enhancer = new Enhancer();
         enhancer.setSuperclass(beanDefinition.getBeanClass());
         enhancer.setCallback(new NoOp() {

@@ -1,6 +1,6 @@
 package cn.devzyh.smallspring.beans.factory.support;
 
-import cn.devzyh.smallspring.beans.BeanException;
+import cn.devzyh.smallspring.beans.BeansException;
 import cn.devzyh.smallspring.beans.factory.config.BeanDefinition;
 
 import java.util.HashMap;
@@ -20,10 +20,15 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
     }
 
     @Override
-    protected BeanDefinition getBeanDefinition(String beanName) throws BeanException {
+    public boolean containsBeanDefinition(String beanName) {
+        return beanDefinitionMap.containsKey(beanName);
+    }
+
+    @Override
+    protected BeanDefinition getBeanDefinition(String beanName) throws BeansException {
         BeanDefinition beanDefinition = beanDefinitionMap.get(beanName);
         if (beanDefinition == null) {
-            throw new BeanException("Bean定义不存在");
+            throw new BeansException("Bean定义不存在");
         }
         return beanDefinition;
     }

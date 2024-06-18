@@ -1,4 +1,4 @@
-package cn.devzyh.smallspring.beans.service;
+package cn.devzyh.smallspring.test.beans;
 
 import java.util.HashMap;
 

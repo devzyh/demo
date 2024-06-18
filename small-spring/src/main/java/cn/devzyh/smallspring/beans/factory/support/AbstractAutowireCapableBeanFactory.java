@@ -1,6 +1,6 @@
 package cn.devzyh.smallspring.beans.factory.support;
 
-import cn.devzyh.smallspring.beans.BeanException;
+import cn.devzyh.smallspring.beans.BeansException;
 import cn.devzyh.smallspring.beans.PropertyValue;
 import cn.devzyh.smallspring.beans.PropertyValues;
 import cn.devzyh.smallspring.beans.factory.config.BeanDefinition;
@@ -17,7 +17,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
     private static final InstantiationStrategy instantiationStrategy = new CglibSubclassingInstantiationStrategy();
 
     @Override
-    protected Object createBean(String beanName, BeanDefinition beanDefinition, Object[] args) throws BeanException {
+    protected Object createBean(String beanName, BeanDefinition beanDefinition, Object[] args) throws BeansException {
         Object bean = null;
         try {
             Constructor<?> constructor = null;
@@ -32,7 +32,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
             applyPropertyValues(bean, beanDefinition);
         } catch (Exception e) {
-            throw new BeanException("实例化Bean对象失败");
+            throw new BeansException("实例化Bean对象失败");
         }
 
         addSingleton(beanName, bean);
@@ -45,7 +45,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
      * @param bean
      * @param beanDefinition
      */
-    void applyPropertyValues(Object bean, BeanDefinition beanDefinition) throws BeanException {
+    void applyPropertyValues(Object bean, BeanDefinition beanDefinition) throws BeansException {
         PropertyValues propertyValues = beanDefinition.getPropertyValues();
 
         try {
@@ -61,8 +61,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
                 // 对象赋值
                 BeanUtil.setFieldValue(bean, name, value);
             }
-        } catch (BeanException e) {
-            throw new BeanException("请求属性对象失败");
+        } catch (BeansException e) {
+            throw new BeansException("请求属性对象失败");
         }
     }
 

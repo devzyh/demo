@@ -1,6 +1,6 @@
 package cn.devzyh.smallspring.beans.factory;
 
-import cn.devzyh.smallspring.beans.BeanException;
+import cn.devzyh.smallspring.beans.BeansException;
 
 /**
  * Bean工厂接口
@@ -12,9 +12,9 @@ public interface BeanFactory {
      *
      * @param beanName
      * @return
-     * @throws BeanException
+     * @throws BeansException
      */
-    Object getBean(String beanName) throws BeanException;
+    Object getBean(String beanName) throws BeansException;
 
     /**
      * 获取Bean对象
@@ -23,6 +23,6 @@ public interface BeanFactory {
      * @param args
      * @return
      */
-    Object getBean(String beanName, Object... args) throws BeanException;
+    Object getBean(String beanName, Object... args) throws BeansException;
 
 }

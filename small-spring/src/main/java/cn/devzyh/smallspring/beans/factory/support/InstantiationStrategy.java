@@ -1,6 +1,6 @@
 package cn.devzyh.smallspring.beans.factory.support;
 
-import cn.devzyh.smallspring.beans.BeanException;
+import cn.devzyh.smallspring.beans.BeansException;
 import cn.devzyh.smallspring.beans.factory.config.BeanDefinition;
 
 import java.lang.reflect.Constructor;
@@ -17,8 +17,8 @@ public interface InstantiationStrategy {
      * @param constructor
      * @param args
      * @return
-     * @throws BeanException
+     * @throws BeansException
      */
-    Object instantiate(BeanDefinition beanDefinition, Constructor<?> constructor, Object[] args) throws BeanException;
+    Object instantiate(BeanDefinition beanDefinition, Constructor<?> constructor, Object[] args) throws BeansException;
 
 }

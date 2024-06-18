@@ -1,10 +1,10 @@
-package cn.devzyh.smallspring.beans;
+package cn.devzyh.smallspring.test.beans;
 
+import cn.devzyh.smallspring.beans.BeansException;
+import cn.devzyh.smallspring.beans.PropertyValue;
 import cn.devzyh.smallspring.beans.factory.config.BeanDefinition;
 import cn.devzyh.smallspring.beans.factory.config.BeanReference;
 import cn.devzyh.smallspring.beans.factory.support.DefaultListableBeanFactory;
-import cn.devzyh.smallspring.beans.service.UserDao;
-import cn.devzyh.smallspring.beans.service.UserService;
 import org.junit.jupiter.api.Test;
 
 public class BeanTest {
@@ -13,7 +13,7 @@ public class BeanTest {
      * Bean工厂测试
      */
     @Test
-    public void testBeanFactory() throws BeanException {
+    public void testBeanFactory() throws BeansException {
         DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
         BeanDefinition definition = new BeanDefinition(UserService.class);
         String beanName = "userService";
@@ -29,10 +29,10 @@ public class BeanTest {
     /**
      * 带有构造参数的Bean对象实例化
      *
-     * @throws BeanException
+     * @throws BeansException
      */
     @Test
-    public void testBeanWithArgs() throws BeanException {
+    public void testBeanWithArgs() throws BeansException {
         DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
         BeanDefinition definition = new BeanDefinition(UserService.class);
         String beanName = "userService";
@@ -45,10 +45,10 @@ public class BeanTest {
     /**
      * Bean对象属性依赖
      *
-     * @throws BeanException
+     * @throws BeansException
      */
     @Test
-    public void testBeanApplyPropertyValues() throws BeanException {
+    public void testBeanApplyPropertyValues() throws BeansException {
         DefaultListableBeanFactory factory = new DefaultListableBeanFactory();
 
         BeanDefinition definition = new BeanDefinition(UserDao.class);

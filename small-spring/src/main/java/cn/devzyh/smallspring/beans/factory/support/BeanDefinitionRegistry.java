@@ -14,4 +14,11 @@ public interface BeanDefinitionRegistry {
      */
     void registerBeanDefinition(String beanName, BeanDefinition beanDefinition);
 
+    /**
+     * 是否存在Bean
+     * @param beanName
+     * @return
+     */
+    boolean containsBeanDefinition(String beanName);
+
 }

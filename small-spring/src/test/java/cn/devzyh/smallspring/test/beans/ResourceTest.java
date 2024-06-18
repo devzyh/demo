@@ -1,4 +1,4 @@
-package cn.devzyh.smallspring.beans;
+package cn.devzyh.smallspring.test.beans;
 
 import cn.devzyh.smallspring.core.io.DefaultResourceLoader;
 import cn.devzyh.smallspring.core.io.Resource;

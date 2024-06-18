@@ -1,6 +1,6 @@
 package cn.devzyh.smallspring.beans.factory.support;
 
-import cn.devzyh.smallspring.beans.BeanException;
+import cn.devzyh.smallspring.beans.BeansException;
 import cn.devzyh.smallspring.beans.factory.BeanFactory;
 import cn.devzyh.smallspring.beans.factory.config.BeanDefinition;
 
@@ -10,16 +10,16 @@ import cn.devzyh.smallspring.beans.factory.config.BeanDefinition;
 public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory {
 
     @Override
-    public Object getBean(String beanName) throws BeanException {
+    public Object getBean(String beanName) throws BeansException {
         return doGetBean(beanName, null);
     }
 
     @Override
-    public Object getBean(String beanName, Object... args) throws BeanException {
+    public Object getBean(String beanName, Object... args) throws BeansException {
         return doGetBean(beanName, args);
     }
 
-    private Object doGetBean(String beanName, Object[] args) throws BeanException {
+    private Object doGetBean(String beanName, Object[] args) throws BeansException {
         // 优先获取单例对象
         Object bean = getSingleton(beanName);
         if (bean != null) {
@@ -36,7 +36,7 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
      * @param beanName
      * @return
      */
-    protected abstract BeanDefinition getBeanDefinition(String beanName) throws BeanException;
+    protected abstract BeanDefinition getBeanDefinition(String beanName) throws BeansException;
 
     /**
      * 创建Bean对象
@@ -46,7 +46,7 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
      * @param args
      * @return
      */
-    protected abstract Object createBean(String beanName, BeanDefinition beanDefinition, Object[] args) throws BeanException;
+    protected abstract Object createBean(String beanName, BeanDefinition beanDefinition, Object[] args) throws BeansException;
 
 }
 

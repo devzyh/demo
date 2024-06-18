@@ -1,7 +1,6 @@
 package cn.devzyh.smallspring.core.io;
 
-import cn.hutool.core.lang.Assert;
-import cn.hutool.core.util.ClassLoaderUtil;
+import cn.hutool.core.util.ClassUtil;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -22,7 +21,7 @@ public class ClassPathResource implements Resource {
 
     public ClassPathResource(String path, ClassLoader classLoader) {
         this.path = path;
-        this.classLoader = classLoader == null ? ClassLoaderUtil.getClassLoader() : classLoader;
+        this.classLoader = classLoader == null ? ClassUtil.getClassLoader() : classLoader;
     }
 
     @Override
