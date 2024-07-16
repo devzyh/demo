@@ -1,11 +1,13 @@
 package cn.devzyh.smallspring.beans.factory.config;
 
 /**
- * Bean依赖数据类型
+ * 作者：DerekYRC https://github.com/DerekYRC/mini-spring
+ * <p>
+ * Bean 的引用
  */
 public class BeanReference {
 
-    private String beanName;
+    private final String beanName;
 
     public BeanReference(String beanName) {
         this.beanName = beanName;
@@ -14,4 +16,5 @@ public class BeanReference {
     public String getBeanName() {
         return beanName;
     }
+
 }

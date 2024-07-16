@@ -8,32 +8,26 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
-/**
- * 远程资源加载器
- */
 public class UrlResource implements Resource {
 
-    private URL url;
+    private final URL url;
 
     public UrlResource(URL url) {
-        Assert.notNull(url, "URL地址不能为空");
+        Assert.notNull(url, "URL must not be null");
         this.url = url;
     }
 
     @Override
     public InputStream getInputStream() throws IOException {
-        URLConnection conn = this.url.openConnection();
+        URLConnection con = this.url.openConnection();
         try {
-            return conn.getInputStream();
-        } catch (IOException e) {
-            if (conn != null && conn instanceof HttpURLConnection) {
-                ((HttpURLConnection) conn).disconnect();
+            return con.getInputStream();
+        } catch (IOException ex) {
+            if (con instanceof HttpURLConnection) {
+                ((HttpURLConnection) con).disconnect();
             }
-            throw e;
+            throw ex;
         }
     }
 
-    public URL getUrl() {
-        return url;
-    }
 }

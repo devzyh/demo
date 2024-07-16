@@ -3,7 +3,7 @@ package cn.devzyh.smallspring.test.beans;
 import cn.devzyh.smallspring.beans.BeansException;
 import cn.devzyh.smallspring.beans.factory.support.BeanDefinitionReader;
 import cn.devzyh.smallspring.beans.factory.support.DefaultListableBeanFactory;
-import cn.devzyh.smallspring.beans.factory.support.xml.XmlBeanDefinitionReader;
+import cn.devzyh.smallspring.beans.factory.xml.XmlBeanDefinitionReader;
 import cn.hutool.core.util.StrUtil;
 import org.junit.jupiter.api.Test;
 

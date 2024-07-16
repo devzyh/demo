@@ -7,22 +7,22 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 /**
- * Java实例化对象
+ * 作者：DerekYRC https://github.com/DerekYRC/mini-spring
  */
 public class SimpleInstantiationStrategy implements InstantiationStrategy {
 
     @Override
-    public Object instantiate(BeanDefinition beanDefinition, Constructor<?> constructor, Object[] args) throws BeansException {
-        Class<?> clazz = beanDefinition.getBeanClass();
+    public Object instantiate(BeanDefinition beanDefinition, String beanName, Constructor ctor, Object[] args) throws BeansException {
+        Class clazz = beanDefinition.getBeanClass();
         try {
-            if (constructor == null) {
-                return clazz.getDeclaredConstructor().newInstance();
+            if (null != ctor) {
+                return clazz.getDeclaredConstructor(ctor.getParameterTypes()).newInstance(args);
             } else {
-                return clazz.getDeclaredConstructor(constructor.getParameterTypes()).newInstance(args);
+                return clazz.getDeclaredConstructor().newInstance();
             }
-        } catch (NoSuchMethodException | InvocationTargetException | InstantiationException |
-                 IllegalAccessException e) {
-            throw new BeansException("Java实例化Bean[" + clazz.getName() + "]失败");
+        } catch (NoSuchMethodException | InstantiationException | IllegalAccessException |
+                 InvocationTargetException e) {
+            throw new BeansException("Failed to instantiate [" + clazz.getName() + "]", e);
         }
     }
 

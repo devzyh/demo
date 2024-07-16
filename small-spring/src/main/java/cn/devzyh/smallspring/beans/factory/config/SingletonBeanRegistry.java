@@ -1,16 +1,18 @@
 package cn.devzyh.smallspring.beans.factory.config;
 
 /**
- * 单例Bean注册接口
+ * 作者：DerekYRC https://github.com/DerekYRC/mini-spring
+ * <p>
+ * 单例注册表
  */
 public interface SingletonBeanRegistry {
 
-    /**
-     * 获取单例对象
-     *
-     * @param beanName
-     * @return
-     */
     Object getSingleton(String beanName);
 
+
+    /**
+     * 销毁单例对象
+     */
+    void destroySingletons();
 }
+                                                

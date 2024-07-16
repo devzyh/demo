@@ -5,23 +5,20 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-/**
- * 文件系统加载器
- */
 public class FileSystemResource implements Resource {
 
-    private String path;
+    private final File file;
 
-    private File file;
-
-    public FileSystemResource(String path) {
-        this.path = path;
-        this.file = new File(path);
-    }
+    private final String path;
 
     public FileSystemResource(File file) {
         this.file = file;
         this.path = file.getPath();
+    }
+
+    public FileSystemResource(String path) {
+        this.file = new File(path);
+        this.path = path;
     }
 
     @Override
@@ -29,7 +26,8 @@ public class FileSystemResource implements Resource {
         return new FileInputStream(this.file);
     }
 
-    public String getPath() {
-        return path;
+    public final String getPath() {
+        return this.path;
     }
+
 }

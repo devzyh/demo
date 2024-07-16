@@ -2,6 +2,7 @@ package cn.devzyh.smallspring.test.beans;
 
 import cn.devzyh.smallspring.beans.BeansException;
 import cn.devzyh.smallspring.beans.PropertyValue;
+import cn.devzyh.smallspring.beans.PropertyValues;
 import cn.devzyh.smallspring.beans.factory.config.BeanDefinition;
 import cn.devzyh.smallspring.beans.factory.config.BeanReference;
 import cn.devzyh.smallspring.beans.factory.support.DefaultListableBeanFactory;
@@ -56,8 +57,10 @@ public class BeanTest {
         factory.registerBeanDefinition(daoName, definition);
 
         definition = new BeanDefinition(UserService.class);
-        definition.addPropertyValue(new PropertyValue("userDao", new BeanReference(daoName)));
-        definition.addPropertyValue(new PropertyValue("name", "张三"));
+        PropertyValues propertyValues = new PropertyValues();
+        propertyValues.addPropertyValue(new PropertyValue("userDao", new BeanReference(daoName)));
+        propertyValues.addPropertyValue(new PropertyValue("name", "张三"));
+        definition.setPropertyValues(propertyValues);
         String svcName = "userService";
         factory.registerBeanDefinition(svcName, definition);
 

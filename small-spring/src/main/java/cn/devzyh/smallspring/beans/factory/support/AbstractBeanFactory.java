@@ -1,52 +1,66 @@
 package cn.devzyh.smallspring.beans.factory.support;
 
 import cn.devzyh.smallspring.beans.BeansException;
-import cn.devzyh.smallspring.beans.factory.BeanFactory;
 import cn.devzyh.smallspring.beans.factory.config.BeanDefinition;
+import cn.devzyh.smallspring.beans.factory.config.BeanPostProcessor;
+import cn.devzyh.smallspring.beans.factory.config.ConfigurableBeanFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Bean工厂模板方法
+ * 作者：DerekYRC https://github.com/DerekYRC/mini-spring
+ * <p>
+ * BeanDefinition注册表接口
  */
-public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory {
+public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements ConfigurableBeanFactory {
+
+    /**
+     * BeanPostProcessors to apply in createBean
+     */
+    private final List<BeanPostProcessor> beanPostProcessors = new ArrayList<BeanPostProcessor>();
 
     @Override
-    public Object getBean(String beanName) throws BeansException {
-        return doGetBean(beanName, null);
+    public Object getBean(String name) throws BeansException {
+        return doGetBean(name, null);
     }
 
     @Override
-    public Object getBean(String beanName, Object... args) throws BeansException {
-        return doGetBean(beanName, args);
+    public Object getBean(String name, Object... args) throws BeansException {
+        return doGetBean(name, args);
     }
 
-    private Object doGetBean(String beanName, Object[] args) throws BeansException {
-        // 优先获取单例对象
-        Object bean = getSingleton(beanName);
+    @Override
+    public <T> T getBean(String name, Class<T> requiredType) throws BeansException {
+        return (T) getBean(name);
+    }
+
+    protected <T> T doGetBean(final String name, final Object[] args) {
+        Object bean = getSingleton(name);
         if (bean != null) {
-            return bean;
+            return (T) bean;
         }
 
-        BeanDefinition beanDefinition = getBeanDefinition(beanName);
-        return createBean(beanName, beanDefinition, args);
+        BeanDefinition beanDefinition = getBeanDefinition(name);
+        return (T) createBean(name, beanDefinition, args);
+    }
+
+    protected abstract BeanDefinition getBeanDefinition(String beanName) throws BeansException;
+
+    protected abstract Object createBean(String beanName, BeanDefinition beanDefinition, Object[] args) throws BeansException;
+
+    @Override
+    public void addBeanPostProcessor(BeanPostProcessor beanPostProcessor) {
+        this.beanPostProcessors.remove(beanPostProcessor);
+        this.beanPostProcessors.add(beanPostProcessor);
     }
 
     /**
-     * 获取Bean定义
-     *
-     * @param beanName
-     * @return
+     * Return the list of BeanPostProcessors that will get applied
+     * to beans created with this factory.
      */
-    protected abstract BeanDefinition getBeanDefinition(String beanName) throws BeansException;
-
-    /**
-     * 创建Bean对象
-     *
-     * @param beanName
-     * @param beanDefinition
-     * @param args
-     * @return
-     */
-    protected abstract Object createBean(String beanName, BeanDefinition beanDefinition, Object[] args) throws BeansException;
+    public List<BeanPostProcessor> getBeanPostProcessors() {
+        return this.beanPostProcessors;
+    }
 
 }
-

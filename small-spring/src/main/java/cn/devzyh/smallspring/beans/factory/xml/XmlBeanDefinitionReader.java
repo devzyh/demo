@@ -1,4 +1,4 @@
-package cn.devzyh.smallspring.beans.factory.support.xml;
+package cn.devzyh.smallspring.beans.factory.xml;
 
 import cn.devzyh.smallspring.beans.BeansException;
 import cn.devzyh.smallspring.beans.PropertyValue;
@@ -18,7 +18,14 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * XML格式Bean定义读取器
+ * Bean definition reader for XML bean definitions.
+ * <p>
+ * <p>
+ * <p>
+ * <p>
+ * <p>
+ * <p>
+ * 作者：DerekYRC https://github.com/DerekYRC/mini-spring
  */
 public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
@@ -26,18 +33,18 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
         super(registry);
     }
 
-    public XmlBeanDefinitionReader(BeanDefinitionRegistry registry, ResourceLoader loader) {
-        super(registry, loader);
+    public XmlBeanDefinitionReader(BeanDefinitionRegistry registry, ResourceLoader resourceLoader) {
+        super(registry, resourceLoader);
     }
 
     @Override
     public void loadBeanDefinitions(Resource resource) throws BeansException {
         try {
             try (InputStream inputStream = resource.getInputStream()) {
-                doLoadBeanDefinition(inputStream);
+                doLoadBeanDefinitions(inputStream);
             }
         } catch (IOException | ClassNotFoundException e) {
-            throw new BeansException("加载XML配置文件失败 " + resource, e);
+            throw new BeansException("IOException parsing XML document from " + resource, e);
         }
     }
 
@@ -50,14 +57,19 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
     @Override
     public void loadBeanDefinitions(String location) throws BeansException {
-        try {
-            loadBeanDefinitions(getResourceLoader().getResource(location));
-        } catch (Exception e) {
-            System.out.println("加载Bean定义失败");
+        ResourceLoader resourceLoader = getResourceLoader();
+        Resource resource = resourceLoader.getResource(location);
+        loadBeanDefinitions(resource);
+    }
+
+    @Override
+    public void loadBeanDefinitions(String... locations) throws BeansException {
+        for (String location : locations) {
+            loadBeanDefinitions(location);
         }
     }
 
-    void doLoadBeanDefinition(InputStream inputStream) throws BeansException, ClassNotFoundException {
+    protected void doLoadBeanDefinitions(InputStream inputStream) throws ClassNotFoundException {
         Document doc = XmlUtil.readXML(inputStream);
         Element root = doc.getDocumentElement();
         NodeList childNodes = root.getChildNodes();
@@ -73,6 +85,9 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
             String id = bean.getAttribute("id");
             String name = bean.getAttribute("name");
             String className = bean.getAttribute("class");
+            String initMethod = bean.getAttribute("init-method");
+            String destroyMethodName = bean.getAttribute("destroy-method");
+
             // 获取 Class，方便获取类中的名称
             Class<?> clazz = Class.forName(className);
             // 优先级 id > name
@@ -83,6 +98,9 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
             // 定义Bean
             BeanDefinition beanDefinition = new BeanDefinition(clazz);
+            beanDefinition.setInitMethodName(initMethod);
+            beanDefinition.setDestroyMethodName(destroyMethodName);
+
             // 读取属性并填充
             for (int j = 0; j < bean.getChildNodes().getLength(); j++) {
                 if (!(bean.getChildNodes().item(j) instanceof Element)) continue;

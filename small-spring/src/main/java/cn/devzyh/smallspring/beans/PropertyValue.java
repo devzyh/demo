@@ -1,13 +1,15 @@
 package cn.devzyh.smallspring.beans;
 
 /**
- * 对象属性
+ * 作者：DerekYRC https://github.com/DerekYRC/mini-spring
+ * <p>
+ * bean 属性信息
  */
 public class PropertyValue {
 
-    private String name;
+    private final String name;
 
-    private Object value;
+    private final Object value;
 
     public PropertyValue(String name, Object value) {
         this.name = name;
@@ -18,15 +20,8 @@ public class PropertyValue {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public Object getValue() {
         return value;
     }
 
-    public void setValue(Object value) {
-        this.value = value;
-    }
 }

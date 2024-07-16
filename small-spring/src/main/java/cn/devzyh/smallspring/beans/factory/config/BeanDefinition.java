@@ -1,16 +1,19 @@
 package cn.devzyh.smallspring.beans.factory.config;
 
-import cn.devzyh.smallspring.beans.PropertyValue;
 import cn.devzyh.smallspring.beans.PropertyValues;
 
 /**
- * Bean对象定义
+ * 作者：DerekYRC https://github.com/DerekYRC/mini-spring
  */
 public class BeanDefinition {
 
     private Class beanClass;
 
     private PropertyValues propertyValues;
+
+    private String initMethodName;
+
+    private String destroyMethodName;
 
     public BeanDefinition(Class beanClass) {
         this.beanClass = beanClass;
@@ -19,7 +22,7 @@ public class BeanDefinition {
 
     public BeanDefinition(Class beanClass, PropertyValues propertyValues) {
         this.beanClass = beanClass;
-        this.propertyValues = propertyValues == null ? new PropertyValues() : propertyValues;
+        this.propertyValues = propertyValues != null ? propertyValues : new PropertyValues();
     }
 
     public Class getBeanClass() {
@@ -34,8 +37,23 @@ public class BeanDefinition {
         return propertyValues;
     }
 
-    public void addPropertyValue(PropertyValue pv) {
-        this.propertyValues.addPropertyValue(pv);
+    public void setPropertyValues(PropertyValues propertyValues) {
+        this.propertyValues = propertyValues;
     }
 
+    public String getInitMethodName() {
+        return initMethodName;
+    }
+
+    public void setInitMethodName(String initMethodName) {
+        this.initMethodName = initMethodName;
+    }
+
+    public String getDestroyMethodName() {
+        return destroyMethodName;
+    }
+
+    public void setDestroyMethodName(String destroyMethodName) {
+        this.destroyMethodName = destroyMethodName;
+    }
 }

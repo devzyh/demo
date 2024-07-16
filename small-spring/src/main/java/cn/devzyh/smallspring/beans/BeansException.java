@@ -1,18 +1,16 @@
 package cn.devzyh.smallspring.beans;
 
 /**
- * Bean异常
+ * 作者：DerekYRC https://github.com/DerekYRC/mini-spring
  */
-public class BeansException extends Exception {
-    public BeansException() {
-        super();
+public class BeansException extends RuntimeException {
+
+    public BeansException(String msg) {
+        super(msg);
     }
 
-    public BeansException(String message) {
-        super(message);
+    public BeansException(String msg, Throwable cause) {
+        super(msg, cause);
     }
 
-    public BeansException(String message, Throwable cause) {
-        super(message, cause);
-    }
 }
